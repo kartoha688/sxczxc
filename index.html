@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Магазин Мопсів — Чарівні цуценята мопса</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #bc8644;
+      --bg-dark: #9e6d33;
+      --header-bg: #e6c8a2;
+      --header-text: #5a3818;
+      --card-bg: #fff8f0;
+      --text-main: #4a2e15;
+      --text-light: #7a5430;
+      --accent-color: #d97706;
+      --accent-hover: #b45309;
+      --white: #ffffff;
+      --shadow: 0 10px 30px rgba(74, 46, 21, 0.15);
+      --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .logo-text {
+      font-family: 'Comfortaa', cursive;
+    }
+
+    /* Анімації появи */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: var(--transition);
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Хедер */
+    header {
+      background-color: var(--header-bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      backdrop-filter: blur(8px);
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--header-text);
+      font-weight: 700;
+      font-size: 1.3rem;
+    }
+
+    .logo-icon {
+      width: 45px;
+      height: 45px;
+      background: var(--bg-main);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    nav {
+      display: flex;
+      gap: 25px;
+    }
+
+    nav a {
+      color: var(--header-text);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      position: relative;
+      padding: 5px 0;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--header-text);
+      transition: var(--transition);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Головний контейнер */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.2rem;
+      color: #fff;
+      margin-bottom: 40px;
+      text-shadow: 1px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    /* Блок Hero */
+    .hero {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 40px;
+      backdrop-filter: blur(5px);
+      margin-bottom: 60px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: 2.4rem;
+      color: #fff;
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+
+    .hero-text p {
+      color: #fff8f0;
+      font-size: 1.1rem;
+      margin-bottom: 25px;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--card-bg);
+      color: var(--text-main);
+      padding: 14px 32px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.02);
+      background: #ffffff;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+
+    .img-oval {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 6px solid var(--card-bg);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .img-oval:hover {
+      transform: scale(1.03);
+    }
+
+    /* Блок Чому обирають нас */
+    .features {
+      margin-bottom: 60px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .img-circle {
+      width: 300px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 6px solid var(--card-bg);
+      box-shadow: var(--shadow);
+      margin: 0 auto;
+      display: block;
+      transition: var(--transition);
+    }
+
+    .img-circle:hover {
+      transform: rotate(2deg) scale(1.03);
+    }
+
+    .features-list {
+      background: var(--card-bg);
+      padding: 35px;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .feature-item {
+      margin-bottom: 20px;
+    }
+
+    .feature-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .feature-item h3 {
+      color: var(--accent-color);
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+
+    /* Картки цуценят */
+    .puppies-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+
+    .puppy-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .puppy-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .puppy-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .puppy-info {
+      padding: 20px;
+    }
+
+    .puppy-info h3 {
+      margin-bottom: 10px;
+      color: var(--text-main);
+    }
+
+    .puppy-meta {
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+    }
+
+    .price {
+      font-weight: 700;
+      color: var(--accent-color);
+      font-size: 1.2rem;
+    }
+
+    /* Галерея */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-bottom: 60px;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      aspect-ratio: 1;
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    /* FAQ */
+    .faq-list {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+      margin-bottom: 60px;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #e6d5c3;
+      padding: 15px 0;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-question {
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      color: var(--text-light);
+      margin-top: 5px;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 200px;
+      margin-top: 10px;
+    }
+
+    /* Футер */
+    footer {
+      background: var(--bg-dark);
+      color: #fff8f0;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 40px;
+    }
+
+    /* Модальне вікно */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-content {
+      background: var(--card-bg);
+      padding: 35px;
+      border-radius: 24px;
+      max-width: 450px;
+      width: 90%;
+      position: relative;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--text-light);
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 10px 15px;
+      border: 1px solid #d1b89d;
+      border-radius: 10px;
+      font-family: inherit;
+    }
+
+    @media (max-width: 768px) {
+      .hero-grid, .features-grid {
+        grid-template-columns: 1fr;
+      }
+      .header-container {
+        flex-direction: column;
+        gap: 15px;
+      }
+      nav {
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <a href="#" class="logo">
+        <div class="logo-icon">🐶</div>
+        <span>МАГАЗИН МОПСІВ</span>
+      </a>
+      <nav>
+        <a href="#about">Про мопсенят</a>
+        <a href="#puppies">Цуценята</a>
+        <a href="#why-us">Чому ми</a>
+        <a href="#gallery">Галерея</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    
+    <!-- Hero Section -->
+    <section class="hero fade-in" id="about">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <h1>Чарівні цуценята мопса шукають новий дім 🐾</h1>
+          <p>Продаються чарівні цуценята мопса! Шукаєте вірного друга та море позитиву для своєї родини? Пропонуємо чудових породних цуценят мопса! Малюки активні, грайливі, з характерними складочками та кумедними хвостиками-бубликами.</p>
+          <button class="btn-primary" onclick="openModal()">Зарезервувати цуценя</button>
+        </div>
+        <div>
+          <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=800&q=80" alt="Мопс у траві" class="img-oval" onerror="this.src='https://images.pexels.com/photos/1851164/pexels-photo-1851164.jpeg?auto=compress&cs=tinysrgb&w=800'">
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Us -->
+    <section class="features fade-in" id="why-us">
+      <h2 class="section-title">Чому обирають нас?</h2>
+      <div class="features-grid">
+        <div>
+          <img src="https://images.unsplash.com/photo-1529429617124-95b109e86bb8?auto=format&fit=crop&w=800&q=80" alt="Милий мопс" class="img-circle" onerror="this.src='https://images.pexels.com/photos/374906/pexels-photo-374906.jpeg?auto=compress&cs=tinysrgb&w=800'">
+        </div>
+        <div class="features-list">
+          <div class="feature-item">
+            <h3>🏥 Здоров'я та догляд</h3>
+            <p>Цуценята проходять необхідні ветеринарні огляди, планові щеплення та мають повний пакет документів.</p>
+          </div>
+          <div class="feature-item">
+            <h3>❤️ Соціалізація</h3>
+            <p>Малюки виростають у любові, вони дуже лагідні, добрі, чудово ладнають з дітьми та іншими тваринами.</p>
+          </div>
+          <div class="feature-item">
+            <h3>🤝 Постійна підтримка</h3>
+            <p>Ми завжди на зв'язку, щоб надати поради щодо догляду, харчування та виховання вашого нового друга.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Available Puppies -->
+    <section class="fade-in" id="puppies">
+      <h2 class="section-title">Наші доступні мопсенята</h2>
+      <div class="puppies-grid">
+        <div class="puppy-card">
+          <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=600&q=80" alt="Мопс Арчі" class="puppy-img">
+          <div class="puppy-info">
+            <h3>Арчі</h3>
+            <div class="puppy-meta">
+              <span>Хлопчик • 2.5 міс.</span>
+              <span class="price">15 000 грн</span>
+            </div>
+            <button class="btn-primary" style="width: 100%;" onclick="openModal('Арчі')">Обрати Арчі</button>
+          </div>
+        </div>
+        <div class="puppy-card">
+          <img src="https://images.unsplash.com/photo-1529429617124-95b109e86bb8?auto=format&fit=crop&w=600&q=80" alt="Мопс Белла" class="puppy-img">
+          <div class="puppy-info">
+            <h3>Белла</h3>
+            <div class="puppy-meta">
+              <span>Дівчинка • 2 міс.</span>
+              <span class="price">16 000 грн</span>
+            </div>
+            <button class="btn-primary" style="width: 100%;" onclick="openModal('Белла')">Обрати Беллу</button>
+          </div>
+        </div>
+        <div class="puppy-card">
+          <img src="https://images.pexels.com/photos/1851164/pexels-photo-1851164.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Мопс Чарлі" class="puppy-img">
+          <div class="puppy-info">
+            <h3>Чарлі</h3>
+            <div class="puppy-meta">
+              <span>Хлопчик • 3 міс.</span>
+              <span class="price">14 500 грн</span>
+            </div>
+            <button class="btn-primary" style="width: 100%;" onclick="openModal('Чарлі')">Обрати Чарлі</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="fade-in" id="gallery">
+      <h2 class="section-title">Галерея мопсів</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=600&q=80" alt="Мопс 1">
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1529429617124-95b109e86bb8?auto=format&fit=crop&w=600&q=80" alt="Мопс 2">
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.pexels.com/photos/1851164/pexels-photo-1851164.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Мопс 3">
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.pexels.com/photos/374906/pexels-photo-374906.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Мопс 4">
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="fade-in" id="faq">
+      <h2 class="section-title">Часті запитання</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">Які документи отримує цуценя? <span>+</span></div>
+          <div class="faq-answer">Кожне цуценя має ветеринарний паспорт з відмітками про вакцинацію та дегельмінтизацію, а також щенячу картку (родовід).</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Чим годувати мопсеня у перші дні? <span>+</span></div>
+          <div class="faq-answer">Ми надаємо стартовий набір корму преміум-класу, яким цуценя харчувалося у нас, та детальні інструкції щодо раціону.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Чи можлива доставка в інші міста? <span>+</span></div>
+          <div class="faq-answer">Так, ми допомагаємо з бережною доставкою цуценят по всій Україні особисто або перевіреними зооперевізниками.</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>© 2026 Магазин Мопсів. Усі права захищені. Зроблено з любов'ю до чотирилапих 🐾</p>
+  </footer>
+
+  <!-- Modal -->
+  <div class="modal" id="orderModal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal()">&times;</span>
+      <h2 style="margin-bottom: 20px; font-family: 'Comfortaa';">Замовлення цуценяти</h2>
+      <form onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label>Ваше ім'я</label>
+          <input type="text" required placeholder="Олександр">
+        </div>
+        <div class="form-group">
+          <label>Номер телефону</label>
+          <input type="tel" required placeholder="+380 (97) 000-00-00">
+        </div>
+        <div class="form-group">
+          <label>Кого обрали / Коментар</label>
+          <input type="text" id="modalPuppyName" placeholder="Ім'я цуценяти або запитання">
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Надіслати заявку</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Intersection Observer for scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // FAQ Toggle
+    document.querySelectorAll('.faq-question').forEach(item => {
+      item.addEventListener('click', () => {
+        const parent = item.parentElement;
+        parent.classList.toggle('active');
+      });
+    });
+
+    // Modal logic
+    function openModal(puppyName = '') {
+      document.getElementById('orderModal').style.display = 'flex';
+      if(puppyName) {
+        document.getElementById('modalPuppyName').value = puppyName;
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('orderModal').style.display = 'none';
+    }
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      alert('Дякуємо за заявку! Ми зателефонуємо вам найближчим часом 🐾');
+      closeModal();
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('orderModal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>
